@@ -44,20 +44,24 @@ hi link htmlTag                     xmlTag
 hi link htmlTagName                 xmlTagName
 hi link htmlEndTag                  xmlEndTag
 
-highlight Normal                    guifg=#E6E1DC guibg=#111111 
+highlight Normal                    guifg=#E6E1DC guibg=#111111 ctermfg=254 ctermbg=NONE
 highlight Cursor                    guifg=#000000 ctermfg=0 guibg=#FFFFFF ctermbg=15	
 highlight CursorLine                guibg=#000000 ctermbg=233 cterm=NONE
+highlight CursorCol                 guibg=#333333 guifg=NONE
+hi StatusLine                guifg=Black   guibg=#aabbee gui=bold ctermfg=Black ctermbg=153 cterm=bold
+hi StatusLineNC              guifg=#444444 guibg=#aaaaaa gui=none ctermfg=233   ctermbg=237 cterm=none
+hi VertSplit                 guifg=Black   guibg=#aabbee gui=bold ctermfg=237   ctermbg=237 cterm=none
 
 highlight Comment                   guifg=#BC9458 ctermfg=180 gui=italic
 highlight Constant                  guifg=#6D9CBE ctermfg=73
-highlight Define                    guifg=#CC7833 ctermfg=173
+highlight Define                    guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
 highlight Error                     guifg=#FFC66D ctermfg=221 guibg=#990000 ctermbg=88
 highlight Function                  guifg=#FFC66D ctermfg=221 gui=NONE cterm=NONE
 highlight Identifier                guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
 highlight Include                   guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
 highlight PreCondit                 guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
 highlight Keyword                   guifg=#CC7833 ctermfg=173 cterm=NONE
-highlight LineNr                    guifg=#2B2B2B ctermfg=159 guibg=#C0C0FF
+highlight LineNr                    guifg=#595959 ctermfg=243 guibg=#2b2b2b ctermbg=235
 highlight Number                    guifg=#A5C261 ctermfg=107
 highlight PreProc                   guifg=#E6E1DC ctermfg=103
 highlight Search                    guifg=NONE ctermfg=NONE guibg=#2b2b2b ctermbg=235 gui=italic cterm=underline
@@ -66,7 +70,7 @@ highlight String                    guifg=#A5C261 ctermfg=107
 highlight Title                     guifg=#FFFFFF ctermfg=15
 highlight Type                      guifg=#DA4939 ctermfg=167 gui=NONE cterm=NONE
 highlight Visual                    guibg=#5A647E ctermbg=60
-highlight ColorColumn               guibg=#1B1B1B ctermbg=180
+highlight ColorColumn               guibg=#1B1B1B ctermbg=233
 
 highlight DiffAdd                   term=reverse ctermbg=1 gui=reverse guifg=#8AEF31 guibg=#111111
 highlight DiffChange                term=reverse ctermbg=5 gui=reverse guifg=#FFEDB6 guibg=#111111
