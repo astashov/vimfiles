@@ -29,13 +29,20 @@ augroup filetypedetect
   au! BufNewFile,BufRead *.yml setf eruby
   au! BufNewFile,BufRead *.rsel setf ruby
   au! BufNewFile,BufRead *.markdown setf mkd
-  au! BufNewFile,BufRead Gemfile*, Capfile setf ruby
+  au! BufNewFile,BufRead Gemfile* setf ruby
+  au! BufNewFile,BufRead Capfile setf ruby
 augroup END
 
+filetype on
+filetype indent on
+filetype plugin on
+
+" Configuring JSLint
 au! BufWrite *.js JSLint
 au! BufHidden,BufUnload,BufLeave,BufWinLeave *.js JSLintClear
 map <F4> JSLintLight
 
+" Default tab expanding
 set ts=2
 set bs=2
 set shiftwidth=2
@@ -49,8 +56,8 @@ set colorcolumn=80
 
 " Remove all trailing spaces
 command! -nargs=0 Rc exe "%s\/\\s\\+$\/\/"
-" Vim Ruby Debugger settings
 
+" Vim Ruby Debugger settings
 let g:ruby_debugger_debug_mode = 1
 let g:ruby_debugger_spec_path = 'rspec'
 let g:ruby_debugger_default_script = 'script/rails s'
@@ -65,10 +72,16 @@ map <F8>  :call g:RubyDebugger.continue()<CR>
 map <A-e>  :call g:RubyDebugger.exit()<CR>
 map <A-d>  :call g:RubyDebugger.remove_breakpoints()<CR>
 
+" Enable NERDTree
 nmap <silent> <Leader>p :NERDTreeToggle<CR>
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
+
+" Enable BufExplorer
 nnoremap <C-B> :BufExplorer<cr>
+
+" Clear highlighting
+nnoremap <C-L> :nohls<CR><C-L>
+
+" Make Ctrl+C/Ctrl+V work
 nmap <C-C> "+yi
 imap <C-V> <esc>"+gPi
 
@@ -90,12 +103,25 @@ set nowrap  " Line wrapping off
 set nu " Line numbers on
 set formatoptions=tcqr
 set autoindent
-set wildmenu " Suggest by Tab in command line
-set listchars=tab:\ \ ,trail:·,extends:→,precedes:←,nbsp:×
+set wildmode=longest,list
+set wildmenu
+set listchars=tab:\ \ ,trail:·,extends:→,precedes:←,nbsp:× " Show junky chars
 set ignorecase smartcase gdefault nocp incsearch " Incremental search
 set t_Co=256
+set ruler " Show line and column numbers
+set expandtab
+syntax on
 
-" n и N, always center search results
+" Syntastic configs
+let g:syntastic_enable_signs=0
+set statusline=%<%f\ %h%m%r%=
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=\ %-14.(%l,%c%V%)\ %P
+
+
+" n and N, always center search results
 nmap n nzz
 nmap N Nzz
 nmap * *zz
@@ -131,9 +157,9 @@ nmap <Leader><right> :rightbelow vnew<CR>
 nmap <Leader><up>    :leftabove  new<CR>
 nmap <Leader><down>  :rightbelow new<CR>
 
-" \c
+" \g
 " camelCase => camel_case
-vnoremap <silent> <Leader>c :s/\v\C(([a-z]+)([A-Z]))/\2_\l\3/g<CR>
+vnoremap <silent> <Leader>g :s/\v\C(([a-z]+)([A-Z]))/\2_\l\3/g<CR>
 
 " save file with root permissions"
 cmap w!! %!sudo tee > /dev/null % 
@@ -147,16 +173,28 @@ set noshowmatch " Don't show paired <> in HTML
 
 " Move lines
 " Move one line
-nmap <C-S-k> ddkP
-nmap <C-S-j> ddp
+nmap <C-S-k> :call g:MoveLineUp()<CR>
+nmap <C-S-j> :call g:MoveLineDown()<CR>
 " Move several lines in visual mode
 " http://www.vim.org/scripts/script.php?script_id=1590
 vmap <C-S-k> xkP'[V']
 vmap <C-S-j> xp'[V']
 
-filetype on
-filetype indent on
-filetype plugin on
+function! g:MoveLineUp()
+  if &modifiable
+    normal ddkP
+  endif
+endfunction
+
+function! g:MoveLineDown()
+  if &modifiable
+    normal ddp
+  endif
+endfunction
+
+" Copy the current file to the buffer
+nmap <C-p> :let @*=expand('%')<CR>
+
 
 "define :Lorem command to dump in a paragraph of lorem ipsum
 command! -nargs=0 Lorem :normal iLorem ipsum dolor sit amet, consectetur
